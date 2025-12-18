@@ -15,6 +15,8 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var titleTextView: TextView
     lateinit var usernameEditText: EditText
+
+    lateinit var passwordEditText: EditText
     lateinit var createButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,8 +24,9 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
-        titleTextView = findViewById(R.id.textView)
+        titleTextView = findViewById(R.id.textview)
         usernameEditText = findViewById(R.id.username)
+        passwordEditText = findViewById(R.id.password)
         createButton = findViewById(R.id.createButton)
 
         createButton.setOnClickListener {
