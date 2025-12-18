@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Midterms</string>
+
+    <string name="sign_in_text">
+    Already have an Account? <u><b><font color='#DDA0FF'>Sign in</font></b></u>
+</string>
+
 </resources>
+

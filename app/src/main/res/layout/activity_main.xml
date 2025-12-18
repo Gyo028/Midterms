@@ -36,12 +36,14 @@
             android:id="@+id/signInText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Already have an Account? Sign in"
-            android:textSize="14sp"
             android:textColor="#FFFFFF"
+            android:textSize="14sp"
             app:layout_constraintTop_toBottomOf="@id/title"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp"
+            android:text="@string/sign_in_text"
+            android:autoLink="none"/>
+
 
 
         <EditText
@@ -151,7 +153,7 @@
             android:id="@+id/createButton"
             android:layout_width="wrap_content"
             android:layout_height="52dp"
-            android:backgroundTint="#A020F0"
+            android:backgroundTint="#7910D7"
             android:drawableEnd="@drawable/login"
             android:drawablePadding="8dp"
             android:text="CREATE"
