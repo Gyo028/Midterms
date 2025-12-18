@@ -59,8 +59,6 @@ class MainActivity : AppCompatActivity() {
             usernameEditText.text.clear()
             passwordEditText.text.clear()
 
-
-
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(
