@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import android.view.View
+import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,9 +33,21 @@ class MainActivity : AppCompatActivity() {
         createButton.setOnClickListener {
             val username = usernameEditText.text.toString()
 
+            if (username.isEmpty()) {
+                Toast.makeText(this, "Username can't be empty", Toast.LENGTH_SHORT).show()
+            } else if (username.length < 3) {
+                Toast.makeText(this, "Username must be at least 3 characters", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Account created successfully", Toast.LENGTH_SHORT).show()
+            }
+
+            usernameEditText.text.clear()
+            passwordEditText.text.clear()
+
             val intent = Intent(this, SecondActivity::class.java)
             intent.putExtra("username", username)
             startActivity(intent)
+
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(

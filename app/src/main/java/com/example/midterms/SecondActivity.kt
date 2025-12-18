@@ -22,8 +22,7 @@ class SecondActivity : AppCompatActivity() {
 
         val username = intent.getStringExtra("username")
 
-        // Display exactly: Hello <username>
-        helloTextView.text = "Hello $username !"
+        helloTextView.text = "Hello $username!"
 
         ViewCompat.setOnApplyWindowInsetsListener(
             findViewById<View>(R.id.main)
