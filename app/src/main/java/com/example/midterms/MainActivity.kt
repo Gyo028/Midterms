@@ -39,14 +39,16 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "Username must be at least 3 characters", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(this, "Account created successfully", Toast.LENGTH_SHORT).show()
+
+                val intent = Intent(this, SecondActivity::class.java)
+                intent.putExtra("username", username)
+                startActivity(intent)
             }
 
             usernameEditText.text.clear()
             passwordEditText.text.clear()
 
-            val intent = Intent(this, SecondActivity::class.java)
-            intent.putExtra("username", username)
-            startActivity(intent)
+
 
         }
 
