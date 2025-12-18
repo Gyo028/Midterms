@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/purps_bg"
@@ -17,7 +18,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Title aligned to left -->
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
@@ -28,7 +28,6 @@
             android:textColor="#FFFFFF"
             android:layout_marginBottom="8dp"/>
 
-        <!-- Small text below title -->
         <TextView
             android:id="@+id/signInText"
             android:layout_width="wrap_content"
@@ -43,38 +42,44 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Username"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textColor="#FFFFFF"
             android:textColorHint="#FFFFFF"
             android:background="@drawable/input_bg"
             android:padding="16dp"
-            android:layout_marginBottom="12dp"/>
+            android:layout_marginBottom="12dp"
+            android:drawableStart="@drawable/head"
+            android:drawablePadding="12dp"/>
 
         <EditText
             android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:inputType="textEmailAddress"
             android:textColor="#FFFFFF"
             android:textColorHint="#FFFFFF"
             android:background="@drawable/input_bg"
             android:padding="16dp"
-            android:layout_marginBottom="12dp"/>
+            android:layout_marginBottom="12dp"
+            android:drawableStart="@drawable/email"
+            android:drawablePadding="12dp"/>
 
         <EditText
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
-            android:textSize="16sp"
             android:inputType="textPassword"
+            android:textSize="14sp"
             android:textColor="#FFFFFF"
             android:textColorHint="#FFFFFF"
             android:background="@drawable/input_bg"
             android:padding="16dp"
-            android:layout_marginBottom="12dp"/>
+            android:layout_marginBottom="12dp"
+            android:drawableStart="@drawable/lock"
+            android:drawablePadding="12dp"/>
 
         <EditText
             android:id="@+id/confirmPassword"
@@ -82,24 +87,50 @@
             android:layout_height="wrap_content"
             android:hint="Confirm Password"
             android:inputType="textPassword"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textColor="#FFFFFF"
             android:textColorHint="#FFFFFF"
             android:background="@drawable/input_bg"
             android:padding="16dp"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="12dp"
+            android:drawableStart="@drawable/lock"
+            android:drawablePadding="12dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp"
+            android:gravity="center_vertical">
+
+            <CheckBox
+                android:id="@+id/termsCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="#FFFFFF"
+                android:checked="false"/>
+
+            <TextView
+                android:id="@+id/termsText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="I Agree to the Terms and Conditions"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:layout_marginStart="8dp"/>
+        </LinearLayout>
 
         <Button
             android:id="@+id/createButton"
             android:layout_width="match_parent"
             android:layout_height="52dp"
-            android:text="CREATE"
-            android:textStyle="bold"
-            android:textColor="#FFFFFF"
             android:layout_marginLeft="230dp"
             android:backgroundTint="#A020F0"
             android:drawableEnd="@drawable/login"
-            android:drawablePadding="8dp"/>
+            android:drawablePadding="8dp"
+            android:text="CREATE"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

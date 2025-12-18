@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
-        titleTextView = findViewById(R.id.textview)
+        titleTextView = findViewById(R.id.title)
         usernameEditText = findViewById(R.id.username)
         passwordEditText = findViewById(R.id.password)
         createButton = findViewById(R.id.createButton)
