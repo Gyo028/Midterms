@@ -10,14 +10,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import android.view.View
+import android.widget.CheckBox
 import android.widget.Toast
+
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var titleTextView: TextView
     lateinit var usernameEditText: EditText
-
+    lateinit var emailEditText: EditText
     lateinit var passwordEditText: EditText
+    lateinit var confirmPasswordEditText: EditText
+    lateinit var termsCheckBox: CheckBox
     lateinit var createButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,11 +31,18 @@ class MainActivity : AppCompatActivity() {
 
         titleTextView = findViewById(R.id.title)
         usernameEditText = findViewById(R.id.username)
+        emailEditText = findViewById(R.id.email)
         passwordEditText = findViewById(R.id.password)
+        confirmPasswordEditText = findViewById(R.id.confirmPassword)
+        termsCheckBox = findViewById(R.id.termsCheckBox)
         createButton = findViewById(R.id.createButton)
 
         createButton.setOnClickListener {
             val username = usernameEditText.text.toString()
+            val email = emailEditText.text.toString()
+            val password = passwordEditText.text.toString()
+            val confirmPassword = confirmPasswordEditText.text.toString()
+            val termsChecked = termsCheckBox.isChecked
 
             if (username.isEmpty()) {
                 Toast.makeText(this, "Username can't be empty", Toast.LENGTH_SHORT).show()
