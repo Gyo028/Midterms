@@ -77,9 +77,9 @@
 
             <Button
                 android:id="@+id/login_button"
-                android:layout_width="121dp"
+                android:layout_width="123dp"
                 android:layout_height="52dp"
-                android:backgroundTint="#A020F0"
+                android:backgroundTint="#7910D7"
                 android:text="LOGIN"
                 android:drawableEnd="@drawable/login"
                 android:textColor="#FFFFFF"

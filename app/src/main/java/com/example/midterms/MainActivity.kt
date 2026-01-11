@@ -48,6 +48,12 @@ class MainActivity : AppCompatActivity() {
         createButton = findViewById(R.id.createButton)
 
         createButton.setOnClickListener {
+            // Clear previous errors
+            usernameEditText.error = null
+            emailEditText.error = null
+            passwordEditText.error = null
+            confirmPasswordEditText.error = null
+            
             val username = usernameEditText.text.toString()
             val email = emailEditText.text.toString()
             val password = passwordEditText.text.toString()
@@ -56,28 +62,31 @@ class MainActivity : AppCompatActivity() {
 
             when{
                 username.isEmpty() -> {
-                    Toast.makeText(this, "Username can't be empty", Toast.LENGTH_SHORT).show()
+                    usernameEditText.error = "Username can't be empty"
                 }
                 username.length < 3 -> {
-                    Toast.makeText(this, "Username must be at least 3 characters", Toast.LENGTH_SHORT).show()
+                    usernameEditText.error = "Username must be at least 3 characters"
                 }
                 email.isEmpty() -> {
-                    Toast.makeText(this, "Email can't be empty", Toast.LENGTH_SHORT).show()
+                    emailEditText.error = "Email can't be empty"
                 }
                 !Patterns.EMAIL_ADDRESS.matcher(email).matches() -> {
-                    Toast.makeText(this, "Use a valid email address", Toast.LENGTH_SHORT).show()
+                    emailEditText.error = "Use a valid email address"
                 }
                 password.isEmpty() -> {
-                    Toast.makeText(this, "Password can't be empty", Toast.LENGTH_SHORT).show()
+                    passwordEditText.error = "Password can't be empty"
                 }
-                password.length < 3 -> {
-                    Toast.makeText(this, "Password must be at least 3 characters", Toast.LENGTH_SHORT).show()
+                password.length < 8 -> {
+                    passwordEditText.error = "Password must be at least 8 characters"
                 }
-                confirmPassword.isEmpty() -> {
-                    Toast.makeText(this, "Password can't be empty", Toast.LENGTH_SHORT).show()
+                !password.any { it.isDigit() } -> {
+                    passwordEditText.error = "Password must contain a number"
+                }
+                !password.any { !it.isLetterOrDigit() } -> {
+                    passwordEditText.error = "Password must contain a special character"
                 }
                 confirmPassword != password -> {
-                    Toast.makeText(this, "Password must match", Toast.LENGTH_SHORT).show()
+                    confirmPasswordEditText.error = "Passwords must match"
                 }
                 !termsChecked -> {
                     Toast.makeText(this, "You must check the terms and conditions", Toast.LENGTH_SHORT).show()
@@ -117,7 +126,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val startIndex = text.indexOf("Sign in")
-        val endIndex = startIndex + "Sign in".length()
+        val endIndex = startIndex + "Sign in".length
 
         if (startIndex != -1) {
             ss.setSpan(clickableSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
