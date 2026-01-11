@@ -32,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
             String username = usernameEditText.getText().toString();
             String password = passwordEditText.getText().toString();
 
-            if ((username.equals("user") && password.equals("pass")) || (username.equals("Admin") && password.equals("Admin1"))) {
+            if ((username.equals("user") && password.equals("pass")) || (username.equals("Admin") && password.equals("Admin1")) || (username.equals("User") && password.equals("User1"))) {
                 Intent intent = new Intent(LoginActivity.this, SecondActivity.class);
                 intent.putExtra("username", username);
                 startActivity(intent);
