@@ -1,23 +1,31 @@
 package com.example.midterms
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.TextPaint
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
+import android.view.View
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import android.view.View
-import android.widget.CheckBox
-import android.widget.Toast
 import android.util.Patterns
 
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var titleTextView: TextView
+    lateinit var signInTextView: TextView
     lateinit var usernameEditText: EditText
     lateinit var emailEditText: EditText
     lateinit var passwordEditText: EditText
@@ -31,6 +39,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         titleTextView = findViewById(R.id.title)
+        signInTextView = findViewById(R.id.signInText)
         usernameEditText = findViewById(R.id.username)
         emailEditText = findViewById(R.id.email)
         passwordEditText = findViewById(R.id.password)
@@ -90,6 +99,30 @@ class MainActivity : AppCompatActivity() {
 
             }
 
+        }
+
+        val text = getString(R.string.sign_in_text)
+        val ss = SpannableString(text)
+
+        val clickableSpan = object : ClickableSpan() {
+            override fun onClick(widget: View) {
+                startActivity(Intent(this@MainActivity, LoginActivity::class.java))
+            }
+
+            override fun updateDrawState(ds: TextPaint) {
+                super.updateDrawState(ds)
+                ds.color = Color.parseColor("#DDA0FF")
+                ds.isUnderlineText = true
+            }
+        }
+
+        val startIndex = text.indexOf("Sign in")
+        val endIndex = startIndex + "Sign in".length()
+
+        if (startIndex != -1) {
+            ss.setSpan(clickableSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            signInTextView.text = ss
+            signInTextView.movementMethod = LinkMovementMethod.getInstance()
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(
