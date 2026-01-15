@@ -26,6 +26,18 @@
         <activity
             android:name=".SecondActivity"
             android:exported="false" />
+        <activity
+            android:name=".BookAppointmentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MyAppointmentsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoadActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

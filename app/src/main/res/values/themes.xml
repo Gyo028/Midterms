@@ -6,4 +6,10 @@
     </style>
 
     <style name="Theme.Midterms" parent="Base.Theme.Midterms" />
+
+    <style name="DarkButton" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">#141414</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="cornerRadius">12dp</item>
+    </style>
 </resources>
