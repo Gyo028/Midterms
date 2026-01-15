@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/login"
     android:layout_width="match_parent"
@@ -9,7 +8,7 @@
     android:padding="24dp">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent"
@@ -18,22 +17,20 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <TextView
-            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Login"
             android:textColor="#FFFFFF"
             android:textSize="35sp"
             android:textStyle="bold"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginBottom="1dp"/>
 
         <TextView
             android:id="@+id/registerText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:clickable="true"
-            android:focusable="true"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="5dp"
             android:text="@string/log_in_text"
             android:textColor="#FFFFFF"
             android:textSize="14sp" />
@@ -53,11 +50,12 @@
             android:layout_marginBottom="12dp"/>
 
         <EditText
-            android:id="@+id/login_password"
+            android:id="@+id/login_pin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password"
-            android:inputType="textPassword"
+            android:hint="6-Digit PIN"
+            android:inputType="numberPassword"
+            android:maxLength="6"
             android:background="@drawable/input_bg"
             android:drawableStart="@drawable/lock"
             android:drawablePadding="12dp"
@@ -67,24 +65,16 @@
             android:textSize="14sp"
             android:layout_marginBottom="16dp"/>
 
-
-        <LinearLayout
+        <Button
+            android:id="@+id/login_button"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="end"
-            android:layout_marginBottom="16dp">
+            android:layout_height="52dp"
+            android:backgroundTint="#A020F0"
+            android:text="Login"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"/>
 
-            <Button
-                android:id="@+id/login_button"
-                android:layout_width="123dp"
-                android:layout_height="52dp"
-                android:backgroundTint="#7910D7"
-                android:text="LOGIN"
-                android:drawableEnd="@drawable/login"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold"/>
-        </LinearLayout>
+        <!-- Don't have an account -->
 
     </LinearLayout>
 

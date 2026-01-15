@@ -24,43 +24,39 @@ import android.util.Patterns
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var titleTextView: TextView
-    lateinit var signInTextView: TextView
-    lateinit var usernameEditText: EditText
-    lateinit var emailEditText: EditText
-    lateinit var passwordEditText: EditText
-    lateinit var confirmPasswordEditText: EditText
-    lateinit var termsCheckBox: CheckBox
-    lateinit var createButton: Button
+    private lateinit var usernameEditText: EditText
+    private lateinit var emailEditText: EditText
+    private lateinit var pinEditText: EditText
+    private lateinit var confirmPinEditText: EditText
+    private lateinit var termsCheckBox: CheckBox
+    private lateinit var createButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
-        titleTextView = findViewById(R.id.title)
-        signInTextView = findViewById(R.id.signInText)
         usernameEditText = findViewById(R.id.username)
         emailEditText = findViewById(R.id.email)
-        passwordEditText = findViewById(R.id.password)
-        confirmPasswordEditText = findViewById(R.id.confirmPassword)
+        pinEditText = findViewById(R.id.pin)
+        confirmPinEditText = findViewById(R.id.confirmPin)
         termsCheckBox = findViewById(R.id.termsCheckBox)
         createButton = findViewById(R.id.createButton)
 
         createButton.setOnClickListener {
+            val username = usernameEditText.text.toString()
+            val email = emailEditText.text.toString()
+            val pin = pinEditText.text.toString()
+            val confirmPin = confirmPinEditText.text.toString()
+            val termsChecked = termsCheckBox.isChecked
+
             // Clear previous errors
             usernameEditText.error = null
             emailEditText.error = null
-            passwordEditText.error = null
-            confirmPasswordEditText.error = null
-            
-            val username = usernameEditText.text.toString()
-            val email = emailEditText.text.toString()
-            val password = passwordEditText.text.toString()
-            val confirmPassword = confirmPasswordEditText.text.toString()
-            val termsChecked = termsCheckBox.isChecked
+            pinEditText.error = null
+            confirmPinEditText.error = null
 
-            when{
+            when {
                 username.isEmpty() -> {
                     usernameEditText.error = "Username can't be empty"
                 }
@@ -73,43 +69,35 @@ class MainActivity : AppCompatActivity() {
                 !Patterns.EMAIL_ADDRESS.matcher(email).matches() -> {
                     emailEditText.error = "Use a valid email address"
                 }
-                password.isEmpty() -> {
-                    passwordEditText.error = "Password can't be empty"
+                pin.isEmpty() -> {
+                    pinEditText.error = "PIN can't be empty"
                 }
-                password.length < 8 -> {
-                    passwordEditText.error = "Password must be at least 8 characters"
+                pin.length != 6 -> {
+                    pinEditText.error = "PIN must be exactly 6 digits"
                 }
-                !password.any { it.isDigit() } -> {
-                    passwordEditText.error = "Password must contain a number"
-                }
-                !password.any { !it.isLetterOrDigit() } -> {
-                    passwordEditText.error = "Password must contain a special character"
-                }
-                confirmPassword != password -> {
-                    confirmPasswordEditText.error = "Passwords must match"
+                confirmPin != pin -> {
+                    confirmPinEditText.error = "PINs must match"
                 }
                 !termsChecked -> {
-                    Toast.makeText(this, "You must check the terms and conditions", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "You must agree to the Terms and Conditions", Toast.LENGTH_SHORT).show()
                 }
-
                 else -> {
-                    Toast.makeText(this, "Account created successfully", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Account created successfully!", Toast.LENGTH_SHORT).show()
 
+                    // Navigate directly to the Home Screen (SecondActivity)
                     val intent = Intent(this, SecondActivity::class.java)
+                    // Pass the new user's data to the home screen
                     intent.putExtra("username", username)
+                    intent.putExtra("rfid", "26-0003") // Assigning a mock RFID for the new user
+
+                    // Clear the back stack so the user can't go back to the registration screen
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
-
-                    usernameEditText.text.clear()
-                    emailEditText.text.clear()
-                    passwordEditText.text.clear()
-                    confirmPasswordEditText.text.clear()
-                    termsCheckBox.isChecked = false
                 }
-
             }
-
         }
 
+        val signInTextView: TextView = findViewById(R.id.signInText)
         val text = getString(R.string.sign_in_text)
         val ss = SpannableString(text)
 

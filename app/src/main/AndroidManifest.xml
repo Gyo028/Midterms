@@ -38,6 +38,9 @@
         <activity
             android:name=".LoadActivity"
             android:exported="false" />
+        <activity
+            android:name=".ResetPinActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

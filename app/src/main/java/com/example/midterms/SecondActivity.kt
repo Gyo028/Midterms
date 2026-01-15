@@ -1,50 +1,46 @@
 package com.example.midterms
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.TextView
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import java.text.NumberFormat
-import java.util.Locale
+import androidx.fragment.app.Fragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationBarView
 
 class SecondActivity : AppCompatActivity() {
-
-    private lateinit var balanceText: TextView
-    private var currentBalance = 0.0
-
-    private val loadAmountLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            val newAmount = result.data?.getIntExtra("LOAD_AMOUNT", 0) ?: 0
-            currentBalance += newAmount
-            updateBalanceText()
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_second)
 
-        val welcomeText: TextView = findViewById(R.id.welcomeText)
-        balanceText = findViewById(R.id.balanceText)
-        val loadBtn: Button = findViewById(R.id.loadBtn)
+        val bottomNav: BottomNavigationView = findViewById(R.id.bottom_navigation)
+        bottomNav.setOnItemSelectedListener(navListener)
 
-        val username = intent.getStringExtra("username")
-        welcomeText.text = "Welcome, $username!"
-
-        updateBalanceText()
-
-        loadBtn.setOnClickListener {
-            val intent = Intent(this, LoadActivity::class.java)
-            loadAmountLauncher.launch(intent)
+        // Load the HomeFragment by default
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction().replace(R.id.fragment_container, HomeFragment()).commit()
         }
     }
 
-    private fun updateBalanceText() {
-        val format = NumberFormat.getCurrencyInstance(Locale("en", "PH"))
-        balanceText.text = format.format(currentBalance)
+    private val navListener = NavigationBarView.OnItemSelectedListener { item ->
+        lateinit var selectedFragment: Fragment
+
+        when (item.itemId) {
+            R.id.navigation_home -> {
+                selectedFragment = HomeFragment()
+            }
+            R.id.navigation_inbox -> {
+                selectedFragment = InboxFragment()
+            }
+            R.id.navigation_transactions -> {
+                selectedFragment = TransactionsFragment()
+            }
+            R.id.navigation_spending -> {
+                selectedFragment = SpendingFragment()
+            }
+            else -> return@OnItemSelectedListener false
+        }
+
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, selectedFragment).commit()
+        true
     }
 }

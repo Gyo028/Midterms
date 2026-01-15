@@ -24,20 +24,29 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         EditText usernameEditText = findViewById(R.id.login_username);
-        EditText passwordEditText = findViewById(R.id.login_password);
+        EditText pinEditText = findViewById(R.id.login_pin);
         Button loginButton = findViewById(R.id.login_button);
         TextView registerTextView = findViewById(R.id.registerText);
 
         loginButton.setOnClickListener(v -> {
             String username = usernameEditText.getText().toString();
-            String password = passwordEditText.getText().toString();
+            String pin = pinEditText.getText().toString();
 
-            if ((username.equals("user") && password.equals("pass")) || (username.equals("Admin") && password.equals("Admin1")) || (username.equals("User") && password.equals("User1"))) {
+            String rfid = null;
+
+            if (username.equalsIgnoreCase("user") && pin.equals("123456")) {
+                rfid = "26-0002";
+            } else if (username.equalsIgnoreCase("Admin") && pin.equals("123456")) {
+                rfid = "26-0001";
+            }
+
+            if (rfid != null) {
                 Intent intent = new Intent(LoginActivity.this, SecondActivity.class);
                 intent.putExtra("username", username);
+                intent.putExtra("rfid", rfid);
                 startActivity(intent);
             } else {
-                Toast.makeText(LoginActivity.this, "Invalid credentials", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Invalid username or PIN", Toast.LENGTH_SHORT).show();
             }
         });
 

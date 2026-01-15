@@ -1,67 +1,48 @@
 package com.example.midterms
 
-import android.app.Activity
-import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
+import android.widget.ImageView
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import java.text.NumberFormat
-import java.util.Locale
 
 class LoadActivity : AppCompatActivity() {
 
-    private lateinit var amountInput: EditText
-    private lateinit var selectedAmountChecker: TextView
+    private lateinit var imagePreview: ImageView
+
+    // Modern way to handle getting content (like an image) from another app
+    private val pickImageLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+        uri?.let {
+            // The user has successfully picked an image.
+            // Set it as the preview.
+            imagePreview.setImageURI(it)
+
+            // In a real app, you might hide the upload button now
+            val uploadButton: Button = findViewById(R.id.uploadButton)
+            uploadButton.visibility = Button.GONE
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.load_activity)
 
-        amountInput = findViewById(R.id.amountInput)
-        selectedAmountChecker = findViewById(R.id.selectedAmountChecker)
-        val btn50: Button = findViewById(R.id.btn50)
-        val btn100: Button = findViewById(R.id.btn100)
-        val btn150: Button = findViewById(R.id.btn150)
-        val btn200: Button = findViewById(R.id.btn200)
-        val confirmButton: Button = findViewById(R.id.confirmButton)
+        imagePreview = findViewById(R.id.imagePreview)
+        val uploadButton: Button = findViewById(R.id.uploadButton)
+        val submitButton: Button = findViewById(R.id.submitButton)
 
-        // Listen for text changes to update the checker
-        amountInput.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-            override fun afterTextChanged(s: Editable?) {
-                updateChecker()
-            }
-        })
+        uploadButton.setOnClickListener {
+            // Launch the gallery or file picker to let the user select an image.
+            pickImageLauncher.launch("image/*")
+        }
 
-        // Set click listeners for the amount buttons
-        btn50.setOnClickListener { addAmount(50) }
-        btn100.setOnClickListener { addAmount(100) }
-        btn150.setOnClickListener { addAmount(150) }
-        btn200.setOnClickListener { addAmount(200) }
-
-        confirmButton.setOnClickListener {
-            val amount = amountInput.text.toString().toIntOrNull() ?: 0
-            val resultIntent = Intent()
-            resultIntent.putExtra("LOAD_AMOUNT", amount)
-            setResult(Activity.RESULT_OK, resultIntent)
+        submitButton.setOnClickListener {
+            // In a real app, you would upload the image URI to your server.
+            // For now, we'll just show a confirmation message and close the screen.
+            Toast.makeText(this, "Payment submitted for review!", Toast.LENGTH_LONG).show()
             finish()
         }
-    }
-
-    private fun addAmount(amount: Int) {
-        val currentAmount = amountInput.text.toString().toIntOrNull() ?: 0
-        val newAmount = currentAmount + amount
-        amountInput.setText(newAmount.toString())
-    }
-
-    private fun updateChecker() {
-        val amount = amountInput.text.toString().toIntOrNull() ?: 0
-        val format = NumberFormat.getCurrencyInstance(Locale("en", "PH"))
-        selectedAmountChecker.text = "You are adding: ${format.format(amount)}"
     }
 }
