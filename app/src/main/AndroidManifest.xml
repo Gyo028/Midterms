@@ -47,6 +47,9 @@
         <activity
             android:name=".LoadNewActivity"
             android:exported="false" />
+        <activity
+            android:name=".UpcomingRequestsActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

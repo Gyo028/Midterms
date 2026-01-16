@@ -2,7 +2,9 @@ package com.example.midterms
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
+import android.view.View
+import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
@@ -13,21 +15,31 @@ class ProfileActivity : AppCompatActivity() {
         setContentView(R.layout.activity_profile)
 
         val fullNameTextView: TextView = findViewById(R.id.profile_full_name)
-        val phoneNumberTextView: TextView = findViewById(R.id.profile_phone_number)
         val userIdTextView: TextView = findViewById(R.id.profile_user_id)
-        val logoutButton: Button = findViewById(R.id.logout_button)
-        val resetPinButton: Button = findViewById(R.id.reset_pin_button)
+        val logoutButton: RelativeLayout = findViewById(R.id.logout_button)
+        val resetPinButton: RelativeLayout = findViewById(R.id.reset_pin_button)
+        val backButton: ImageView = findViewById(R.id.backButton)
+        val upcomingRequestsButton: RelativeLayout = findViewById(R.id.upcoming_requests_button)
+        val adminDivider: View = findViewById(R.id.admin_divider)
 
-        // Get the data passed from SecondActivity
         val fullName = intent.getStringExtra("fullName")
-        val phone = intent.getStringExtra("phone")
+        val username = intent.getStringExtra("username")
         val rfid = intent.getStringExtra("rfid")
 
-        // Set the text
         fullNameTextView.text = fullName
-        phoneNumberTextView.text = phone
-        userIdTextView.text = "rfid# $rfid"
+        userIdTextView.text = "RFID: $rfid"
 
+        // Admin-only access control
+        val isAdmin = "Admin".equals(username, ignoreCase = true)
+        if (isAdmin) {
+            upcomingRequestsButton.visibility = View.VISIBLE
+            adminDivider.visibility = View.VISIBLE
+            upcomingRequestsButton.setOnClickListener {
+                startActivity(Intent(this, UpcomingRequestsActivity::class.java))
+            }
+        }
+
+        backButton.setOnClickListener { finish() }
 
         logoutButton.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
@@ -36,8 +48,7 @@ class ProfileActivity : AppCompatActivity() {
         }
 
         resetPinButton.setOnClickListener {
-            val intent = Intent(this, ResetPinActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, ResetPinActivity::class.java))
         }
     }
 }
