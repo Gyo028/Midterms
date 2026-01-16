@@ -84,14 +84,9 @@ class MainActivity : AppCompatActivity() {
                 else -> {
                     Toast.makeText(this, "Account created successfully!", Toast.LENGTH_SHORT).show()
 
-                    // Navigate directly to the Home Screen (SecondActivity)
-                    val intent = Intent(this, SecondActivity::class.java)
-                    // Pass the new user's data to the home screen
+                    // Navigate to the Set Up Profile screen
+                    val intent = Intent(this, SetupProfileActivity::class.java)
                     intent.putExtra("username", username)
-                    intent.putExtra("rfid", "26-0003") // Assigning a mock RFID for the new user
-
-                    // Clear the back stack so the user can't go back to the registration screen
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
                 }
             }

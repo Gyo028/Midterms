@@ -15,32 +15,43 @@ class SecondActivity : AppCompatActivity() {
         val bottomNav: BottomNavigationView = findViewById(R.id.bottom_navigation)
         bottomNav.setOnItemSelectedListener(navListener)
 
-        // Load the HomeFragment by default
+        // Load the HomeFragment by default when the activity is first created
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction().replace(R.id.fragment_container, HomeFragment()).commit()
         }
     }
 
     private val navListener = NavigationBarView.OnItemSelectedListener { item ->
-        lateinit var selectedFragment: Fragment
+        // Find the currently displayed fragment
+        val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
 
         when (item.itemId) {
             R.id.navigation_home -> {
-                selectedFragment = HomeFragment()
+                // Avoid reloading the fragment if it's already visible
+                if (currentFragment !is HomeFragment) {
+                    supportFragmentManager.beginTransaction().replace(R.id.fragment_container, HomeFragment()).commit()
+                }
+                return@OnItemSelectedListener true
             }
             R.id.navigation_inbox -> {
-                selectedFragment = InboxFragment()
+                if (currentFragment !is InboxFragment) {
+                    supportFragmentManager.beginTransaction().replace(R.id.fragment_container, InboxFragment()).commit()
+                }
+                return@OnItemSelectedListener true
             }
             R.id.navigation_transactions -> {
-                selectedFragment = TransactionsFragment()
+                if (currentFragment !is TransactionsFragment) {
+                    supportFragmentManager.beginTransaction().replace(R.id.fragment_container, TransactionsFragment()).commit()
+                }
+                return@OnItemSelectedListener true
             }
             R.id.navigation_spending -> {
-                selectedFragment = SpendingFragment()
+                if (currentFragment !is SpendingFragment) {
+                    supportFragmentManager.beginTransaction().replace(R.id.fragment_container, SpendingFragment()).commit()
+                }
+                return@OnItemSelectedListener true
             }
-            else -> return@OnItemSelectedListener false
         }
-
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, selectedFragment).commit()
-        true
+        false
     }
 }

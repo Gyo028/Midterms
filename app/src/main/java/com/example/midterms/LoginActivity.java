@@ -33,17 +33,25 @@ public class LoginActivity extends AppCompatActivity {
             String pin = pinEditText.getText().toString();
 
             String rfid = null;
+            String fullName = null;
+            String phone = null;
 
             if (username.equalsIgnoreCase("user") && pin.equals("123456")) {
+                fullName = "User One";
                 rfid = "26-0002";
+                phone = "+639171234567";
             } else if (username.equalsIgnoreCase("Admin") && pin.equals("123456")) {
+                fullName = "Administrator";
                 rfid = "26-0001";
+                phone = "+639189876543";
             }
 
             if (rfid != null) {
                 Intent intent = new Intent(LoginActivity.this, SecondActivity.class);
+                intent.putExtra("fullName", fullName);
                 intent.putExtra("username", username);
                 intent.putExtra("rfid", rfid);
+                intent.putExtra("phone", phone);
                 startActivity(intent);
             } else {
                 Toast.makeText(LoginActivity.this, "Invalid username or PIN", Toast.LENGTH_SHORT).show();

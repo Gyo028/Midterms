@@ -12,17 +12,20 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
-        val usernameTextView: TextView = findViewById(R.id.profile_username)
+        val fullNameTextView: TextView = findViewById(R.id.profile_full_name)
+        val phoneNumberTextView: TextView = findViewById(R.id.profile_phone_number)
         val userIdTextView: TextView = findViewById(R.id.profile_user_id)
         val logoutButton: Button = findViewById(R.id.logout_button)
         val resetPinButton: Button = findViewById(R.id.reset_pin_button)
 
         // Get the data passed from SecondActivity
-        val username = intent.getStringExtra("username")
+        val fullName = intent.getStringExtra("fullName")
+        val phone = intent.getStringExtra("phone")
         val rfid = intent.getStringExtra("rfid")
 
         // Set the text
-        usernameTextView.text = username
+        fullNameTextView.text = fullName
+        phoneNumberTextView.text = phone
         userIdTextView.text = "rfid# $rfid"
 
 
